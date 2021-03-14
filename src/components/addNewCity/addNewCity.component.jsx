@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import AddCity from '../../components/addCity/addCity.component';
-import AddCityPopop from '../../components/addCityPopop/addCityPopop.component';
+import AddCity from '../addCity/addCity.component';
+import AddCityPopop from '../addCityPopop/addCityPopop.component';
 
 const AddNewCity = props => {
     const [ popopState, setPopupState ] = useState(false);

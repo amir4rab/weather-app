@@ -1,0 +1,19 @@
+.mobile_indicator{
+    &_title{
+
+    } 
+    &_dots{
+        .dot{
+            background: #fff;
+            border-radius: 50%;
+            height: .5rem;
+            width: .5rem;
+    
+            opacity: .5;
+    
+            &_active{
+                opacity: 1;
+            }
+        }
+        }
+}
