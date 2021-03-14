@@ -1,0 +1,37 @@
+@import '../../scss/styles';
+
+.navbar_top{
+    height: 3rem;
+    margin: 2rem 4rem .5rem 4rem;
+
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    @include for-desktop-up{
+        display: flex;
+    }
+
+    .title{
+        font-weight: 600;
+    }
+
+    .links{
+        a{
+            opacity: 0.5;
+            cursor: pointer;
+            min-height: 1.5rem;
+            transition: opacity .3s ease-in-out;
+            img{
+                height: 1.5rem;
+            }
+            &:not(:last-child){
+                padding-right: .5rem;
+            }
+            &:hover{
+                opacity: 1;
+            }
+        }
+    }
+}

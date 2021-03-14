@@ -1,0 +1,39 @@
+@import '../../scss/styles';
+
+.navbar_bottom{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 3.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    background: $background-g-l;
+
+    padding: 0 3rem;
+    .navLink{
+        opacity: .5;
+        transition: opacity .3s ease-in-out;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+
+        img{
+            outline: none;
+            height: 1.5rem;
+        }
+        &.active{
+            opacity: 1;
+        }
+    }
+
+    @include for-desktop-up {
+        display: none;
+    }
+}

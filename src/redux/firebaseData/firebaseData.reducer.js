@@ -7,32 +7,32 @@ const INITIAL_STATE = {
 
 const firebaseDataReducer = ( state = INITIAL_STATE, action ) => {
     switch ( action.type ) {
-        case 'LOGIN':
+        case 'LOGIN':{
             return {
                 ...state,
                 logedin: true,
                 userData: action.payload
             }
-
-        case 'LOGOUT':
+        }
+        case 'LOGOUT':{
             return {
                 ...state,
                 logedin: false,
                 userData: null
             }
-
-        case 'SET_LOADING':
+        }
+        case 'SET_LOADING':{
             return {
                 ...state,
                 loading: action.payload
             }
-
-        case 'SET_SYNCED':
+        }
+        case 'SET_SYNCED':{
             return {
                 ...state,
                 synced: action.payload
             }
-
+        }
         default:
             return state;
     }
