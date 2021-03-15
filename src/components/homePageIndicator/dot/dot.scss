@@ -1,0 +1,20 @@
+.dot{
+    background: #fff;
+    border-radius: 50%;
+    height: .5rem;
+    width: .5rem;
+    
+    opacity: .5;
+    
+    &.active{
+        opacity: 1;
+    }
+}
+.active_dot{
+    opacity: 1;
+
+    background: #fff;
+    border-radius: 50%;
+    height: .5rem;
+    width: .5rem;
+}
