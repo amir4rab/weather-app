@@ -1,8 +1,8 @@
 .dot{
     background: #fff;
     border-radius: 50%;
-    height: .5rem;
-    width: .5rem;
+    height: 3px;
+    width: 3px;
     
     opacity: .5;
     
@@ -10,11 +10,11 @@
         opacity: 1;
     }
 }
-.active_dot{
-    opacity: 1;
+// .active_dot{
+//     opacity: 1;
 
-    background: #fff;
-    border-radius: 50%;
-    height: .5rem;
-    width: .5rem;
-}
+//     background: #fff;
+//     border-radius: 50%;
+//     height: .5rem;
+//     width: .5rem;
+// }

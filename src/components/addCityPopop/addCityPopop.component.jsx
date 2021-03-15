@@ -1,9 +1,17 @@
 import React from 'react';
 
-const AddCityPopop = (props) => {
+import classes from './addCityPopop.module.scss';
+
+const AddCityPopop = ({ setPopupStateDeactive }) => {
+    const closePopup = (e) => {
+        if ( e.target.id === 'overlay' ) setPopupStateDeactive();
+    }
+
     return (
-        <div>
-            add city popop
+        <div id="overlay" className={ classes.overlay } onClick={ closePopup }>
+            <div className={ classes.overlay_inner }>
+                add city popop
+            </div>
         </div>
     );
 };

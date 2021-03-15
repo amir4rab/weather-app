@@ -1,11 +1,14 @@
 import React from 'react';
+import classes from './addCity.module.scss';
 
 import addIcon from '../../assets/icons/addIcon.svg';
 
-const AddCity = props => {
+const AddCity = ({ setPopupStateActive }) => {
+
     return (
-        <div>
-            <img src={addIcon} alt=""/>
+        <div className={ classes.main }>
+            <img onClick={_ => setPopupStateActive(true) } className={ classes.img } src={addIcon} alt=""/>
+            <p className={ classes.p }>Add new City</p>
         </div>
     );
 };

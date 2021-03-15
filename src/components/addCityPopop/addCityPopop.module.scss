@@ -1,0 +1,27 @@
+@import '../../scss/styles';
+
+.overlay{
+    z-index: 500;
+    
+    background: $black-alpha-50;
+    position: absolute;
+    
+    width: 100%;
+    height: 100vh;
+    
+    left: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(8px);
+    &_inner{
+        z-index: 550;
+        width: 75%;
+        height: 5rem;
+        background: $black-alpha-85;
+    }
+}

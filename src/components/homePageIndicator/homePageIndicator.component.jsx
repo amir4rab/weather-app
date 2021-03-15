@@ -4,7 +4,7 @@ import classes from './homePageIndicator.module.scss';
 
 import Dot from './dot/dot.component';
 
-const HomePageIndicator = ({ data, acticeIndex, changeIndexFn }) => {
+const HomePageIndicator = ({ data, activeIndex, changeIndexFn }) => {
     const [ state, setState ] = useState(null);
 
     useEffect( _ => {
@@ -14,18 +14,16 @@ const HomePageIndicator = ({ data, acticeIndex, changeIndexFn }) => {
             ])
     }, [ setState, data ]);
 
-    console.log(`homepageindicator: ${acticeIndex}`);
-
     return (
         <div>
             {
                 state === null ? null :
                 <div className={ classes.mobile_indicator }>
                     <div className={ classes.mobile_indicator_title }>
-                        { state[acticeIndex] }
+                        { state[activeIndex] }
                     </div>
                     <div className={ classes.mobile_indicator_dots }>
-                        { state.map( ( _, index ) => <Dot key={index} activeIndex={acticeIndex} index={index}></Dot> ) }
+                        { state.map( ( _, index ) => <Dot key={index} activeIndex={activeIndex} index={index}></Dot> ) }
                     </div>
                 </div>
             }
