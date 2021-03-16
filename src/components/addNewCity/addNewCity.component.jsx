@@ -6,7 +6,7 @@ import AddCityPopop from '../addCityPopop/addCityPopop.component';
 const AddNewCity = props => {
     const [ popopState, setPopupState ] = useState(false);
 
-    console.log(popopState);
+    // console.log(popopState);
 
     return (
         <div>
