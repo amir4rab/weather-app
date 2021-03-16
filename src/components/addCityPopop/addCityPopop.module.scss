@@ -26,24 +26,51 @@
         border-radius: .5rem;
         padding: 1rem 1.5rem;
 
+        transition: height .3s ease-in-out;
+
+        .loading {
+            width: 5vw;
+            height: 5vw;
+            border-top: $white-1 .2rem solid;
+            border-left: #ffffff80 .2rem solid;
+            border-right: #ffffff80 .2rem solid;
+            border-bottom: #ffffff80 .2rem solid;
+            border-radius: 50%;
+
+            @keyframes rotater {
+                from {
+                    transform: rotate(0);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            animation: rotater .6s ease-in-out infinite;
+        }
+
         .addCity{
             display: flex;
             justify-content: center;
             align-content: center;
             align-items: center;
             flex-direction: column;
-            &_title{
+            &_title {
                 font-size: .8rem;
                 font-weight: 600;
                 margin-bottom: 1.25rem;
             }
-            &_input{
+            &_input {
                 width: 100%;
                 background: $black-1;
                 border: none;
                 border-radius: .5rem;
                 color: $white-1;
                 padding: .5rem 1rem;
+            }
+            &_res {
+                margin-right: auto;
+                font-size: .8rem;
             }
             .err{
                 font-size: .7rem;
@@ -73,6 +100,24 @@
                         background-color: darken($green-1, 15%);
                         color: darken($white-1, 50%);
                     }
+                }
+                .redBtn{
+                    background: $red-1;
+                    color: $black-1;
+                    padding: .25rem 1rem;
+                    border: none;
+                    border-radius: .5rem;
+                    transition: background-color .1s ease-in-out;
+                    &:active,&:hover{
+                        background-color: darken($red-1, 5%);
+                    }
+                    &:disabled{
+                        background-color: darken($red-1, 15%);
+                        color: darken($white-1, 50%);
+                    }
+                }
+                button:not(:last-child) {
+                    margin-right: .5rem;
                 }
             }
         }

@@ -7,11 +7,14 @@ import Dot from './dot/dot.component';
 const HomePageIndicator = ({ data, activeIndex, changeIndexFn }) => {
     const [ state, setState ] = useState(null);
 
+    // console.log(data);
+
     useEffect( _ => {
-        setState([
-                ...data,
-                'Add new City',
-            ])
+        setState(_=>{
+            const reArr = data.map( city => city.name );
+            reArr.push('Add new City');
+            return reArr;
+        })
     }, [ setState, data ]);
 
     return (
