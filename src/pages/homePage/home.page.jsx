@@ -54,13 +54,13 @@ const Home = ({ citiesData }) => {
                 </div>
             </div>
             {
-                activeIndex === 0 && citiesData.data.length === 0 ?
+                activeIndex === 0 && citiesData.data.length === 0 && citiesData.data.length < ( activeIndex + 1 ) ?
                 <AddNewCity /> : 
                 null
             }
             {
                 citiesData.data.length < ( activeIndex + 1 ) ? 
-                <AddNewCity /> : 
+                null : 
                 <WeatherDisplay data={citiesData.data[activeIndex].weatherData.data} />
             }
         </div>
