@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux'
 import { setNewCityFully } from '../../redux/weatherApiData/weatherApiData.actions';
@@ -9,9 +9,11 @@ import AddCityPopop from '../addCityPopop/addCityPopop.component';
 const AddNewCity = ({ setNewCityFully }) => {
     const [ popopState, setPopupState ] = useState(false);
 
+    
     const setCityData = (data) => {
+        // console.log(data.geoData, data);
         setPopupState(false);
-        console.log(data);
+        // console.log(data);
         // const dateObj = new Date();
         setNewCityFully({
             name: data.name,

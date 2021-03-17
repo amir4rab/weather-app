@@ -1,0 +1,65 @@
+@import '../../scss/styles';
+
+.main{
+
+    padding: 0 0 0 3rem;
+
+    .hero{
+        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        
+        position: relative;
+        overflow: hidden;
+
+        height: 50vw;
+
+        .weatherData{
+
+            &_temp{
+                font-size: 4rem;
+                font-weight: 600;
+            }
+
+            &_secDetails{
+                padding-top: 2rem;
+                .weatherStatus{
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    margin-bottom: .5rem;
+                }
+                .weatherFeels{
+                    font-size: 0.875rem;
+                    color: $white-alpha-50;
+                }
+            }
+        }
+        
+        .tempIcon{
+            position: absolute;
+            top: 0;
+            right: -25vw;
+            width: 50vw;
+            height: 50vw;
+            background: $background-s;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            &_inner{
+                width: 60%;
+                height: 60%;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}

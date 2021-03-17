@@ -21,14 +21,14 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
                 .then( res => res.json() )
                 .then( res => {
                     if( res.length > 0 ) {
-                        console.log(res[0])
+                        // console.log(res[0], res[0].lat)
                         setCityFoundState(true);
                         setCashedCountryCode(res[0].country);
                         setCashedData(oldState => 
                             ({
                                 ...oldState,
                                 name: res[0].name.toLowerCase(),
-                                GeoData: {
+                                geoData: {
                                     lat: res[0].lat,
                                     lon: res[0].lon
                                 }
@@ -41,10 +41,10 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
                 })
                 .catch( err => console.log(err) );
         } else {
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cashedData.GeoData.lat}&lon=${cashedData.GeoData.lon}&exclude=minutely&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cashedData.geoData.lat}&lon=${cashedData.geoData.lon}&exclude=minutely&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
                 .then( res => res.json() )
                 .then( res => {
-                    console.log(res)
+                    // console.log(res)
                     setCityFoundState(true);
                     successfullProcess({
                         ...cashedData,
