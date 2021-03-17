@@ -14,3 +14,7 @@ export const removeCity = data => ({
     type: 'REMOVE_CITY',
     payload: data
 });
+export const setNewCityFully = data => ({
+    type: 'SET_NEW_CITY_FULLY',
+    payload: data
+});

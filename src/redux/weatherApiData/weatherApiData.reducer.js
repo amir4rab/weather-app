@@ -25,6 +25,10 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
         }
         case 'SET_CITY_WEATHER':{
             let changedCity;
+
+            const dateObj = new Date();
+            const dateValue = dateObj.valueOf();
+
             //** updating data from arr **//
             const newArr = state.data.filter( cityData => {
                 if ( cityData.name !== action.payload.name ) {
@@ -34,7 +38,7 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
                         ...cityData,
                         weatherData: {
                             data: action.payload.data,
-                            fetchDate: action.payload.date
+                            fetchDate: dateValue
                         }
                     }
                     return false
@@ -46,6 +50,29 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
                 data: [
                     ...newArr,
                     changedCity
+                ],
+            }
+        }
+        case 'SET_NEW_CITY_FULLY':{
+            //** removing Doplicates **//
+            const newArr = state.data.filter( cityData => cityData.name !== action.payload.name );
+
+            const dateObj = new Date();
+            const dateValue = dateObj.valueOf();
+
+            return {
+                ...state,
+                data: [
+                    ...newArr,
+                    {
+                        name: action.payload.name,
+                        geoData: action.payload.geoData,
+                        weatherData: {
+                            data: action.payload.weatherData,
+                            fetchedDate: dateValue
+                        },
+                        positon: newArr.length === 0 ? 0 : newArr.length + 1
+                    }
                 ],
             }
         }

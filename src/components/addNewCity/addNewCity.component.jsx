@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux'
-import { setNewCity, setCityWeather } from '../../redux/weatherApiData/weatherApiData.actions';
+import { setNewCityFully } from '../../redux/weatherApiData/weatherApiData.actions';
 
 import AddCity from '../addCity/addCity.component';
 import AddCityPopop from '../addCityPopop/addCityPopop.component';
 
-const AddNewCity = ({ setNewCity, setCityWeather }) => {
+const AddNewCity = ({ setNewCityFully }) => {
     const [ popopState, setPopupState ] = useState(false);
 
     const setCityData = (data) => {
         setPopupState(false);
         console.log(data);
+        // const dateObj = new Date();
+        setNewCityFully({
+            name: data.name,
+            geoData: data.geoData,
+            weatherData: data.weatherData
+        })
     }
 
     return (
@@ -23,8 +29,7 @@ const AddNewCity = ({ setNewCity, setCityWeather }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setNewCity: data => dispatch(setNewCity(data)),
-    setCityWeather: data => dispatch(setCityWeather(data)),
+    setNewCityFully: data => dispatch(setNewCityFully(data))
 });
 
 
