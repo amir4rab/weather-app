@@ -2,9 +2,6 @@ import classes from './hourlyItem.module.scss';
 
 const HourlyItem = ({ data }) => {
     const date = new Date(data.dt * 1000);
-
-    console.log(date.getHours());
-
     return (
         <div className={ classes.item }>
             <p className={ classes.date }>

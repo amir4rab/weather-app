@@ -55,13 +55,23 @@ const Home = ({ citiesData }) => {
             </div>
             {
                 ( activeIndex === 0 && citiesData.data.length === 0 ) || ( citiesData.data.length < ( activeIndex + 1 ) ) ?
-                <AddNewCity onTouchStartFn={touchStartPoint} onTouchEndFn={touchEndPoint} onTouchMoveFn={ touchMoveEvent } /> : 
+                <AddNewCity 
+                    onTouchStartFn={touchStartPoint} 
+                    onTouchEndFn={touchEndPoint} 
+                    onTouchMoveFn={ touchMoveEvent } 
+                /> : 
                 null
             }
             {
                 citiesData.data.length < ( activeIndex + 1 ) ? 
                 null : 
-                <WeatherDisplay onTouchStartFn={touchStartPoint} onTouchEndFn={touchEndPoint} onTouchMoveFn={ touchMoveEvent } data={citiesData.data[activeIndex].weatherData.data} />
+                <WeatherDisplay 
+                    onTouchStartFn={ touchStartPoint }
+                    onTouchEndFn={ touchEndPoint } 
+                    onTouchMoveFn={ touchMoveEvent } 
+                    weatherData={ citiesData.data[activeIndex].weatherData }
+                    dataObj= { citiesData.data[activeIndex] }
+                />
             }
         </div>
     );

@@ -3,8 +3,6 @@ import classes from './dailyItem.module.scss';
 import WeatherImgFinder from '../../weatherImgFinder/weatherImgFinder';
 
 const DailyItem = ({ data }) => {
-    console.log(data);
-
     const date = new Date(data.dt * 1000);
 
     const weekDays = [

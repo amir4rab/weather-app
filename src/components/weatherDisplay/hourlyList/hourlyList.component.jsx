@@ -7,7 +7,7 @@ import HourlyItem from './hourlyItem/hourlyItem.component';
 const HourlyList = ({ dataArr }) => {
     return (
         <div className={ classes.listArr }>
-            { dataArr.map( data => <HourlyItem data={ data } /> ) }
+            { dataArr.map( ( data, i ) => <HourlyItem data={ data } key={`hourlyItem${i}`} /> ) }
         </div>
     )
 }
