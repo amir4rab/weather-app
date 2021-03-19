@@ -6,7 +6,12 @@ import { setNewCityFully } from '../../redux/weatherApiData/weatherApiData.actio
 import AddCity from '../addCity/addCity.component';
 import AddCityPopop from '../addCityPopop/addCityPopop.component';
 
-const AddNewCity = ({ setNewCityFully }) => {
+const AddNewCity = ({ 
+    setNewCityFully,
+    onTouchStartFn,
+    onTouchEndFn,
+    onTouchMoveFn,
+}) => {
     const [ popopState, setPopupState ] = useState(false);
 
     
@@ -23,7 +28,7 @@ const AddNewCity = ({ setNewCityFully }) => {
     }
 
     return (
-        <div>
+        <div onTouchStart={ onTouchStartFn } onTouchEnd={ onTouchEndFn } onTouchMove={ onTouchMoveFn } >
             { popopState === true ? <AddCityPopop unsuccessfullProcess={ _ => setPopupState(false) } successfullProcess={setCityData} /> : null }
             <AddCity setPopupStateActive={ setPopupState } />
         </div>

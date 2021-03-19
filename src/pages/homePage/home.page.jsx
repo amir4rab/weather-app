@@ -46,7 +46,7 @@ const Home = ({ citiesData }) => {
     }
 
     return (
-        <div className={classes.home} onTouchStart={touchStartPoint} onTouchEnd={touchEndPoint} onTouchMove={ touchMoveEvent } >
+        <div className={classes.home} >
             <div className={ classes.title }><DayReminder dateObj={todaysDate}/></div>
             <div className={ classes.main }>
                 <div className={ classes.pageIndicator }>
@@ -54,14 +54,14 @@ const Home = ({ citiesData }) => {
                 </div>
             </div>
             {
-                activeIndex === 0 && citiesData.data.length === 0 && citiesData.data.length < ( activeIndex + 1 ) ?
-                <AddNewCity /> : 
+                ( activeIndex === 0 && citiesData.data.length === 0 ) || ( citiesData.data.length < ( activeIndex + 1 ) ) ?
+                <AddNewCity onTouchStartFn={touchStartPoint} onTouchEndFn={touchEndPoint} onTouchMoveFn={ touchMoveEvent } /> : 
                 null
             }
             {
                 citiesData.data.length < ( activeIndex + 1 ) ? 
                 null : 
-                <WeatherDisplay data={citiesData.data[activeIndex].weatherData.data} />
+                <WeatherDisplay onTouchStartFn={touchStartPoint} onTouchEndFn={touchEndPoint} onTouchMoveFn={ touchMoveEvent } data={citiesData.data[activeIndex].weatherData.data} />
             }
         </div>
     );

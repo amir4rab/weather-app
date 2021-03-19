@@ -1,0 +1,29 @@
+@import '../../../../scss/styles';
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    .date{
+        font-size: 1.125rem;
+    }
+    .weather{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        .temp{
+            font-size: 0.625rem;
+            padding-right: 1rem;
+            color: $white-alpha-50;
+        }
+        .icon{
+            img{
+                height: 1.75rem;
+                width: 1.75rem;
+                object-fit: contain;
+            }
+        }
+    }
+}

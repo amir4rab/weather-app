@@ -1,0 +1,28 @@
+@import '../../../../scss/styles';
+
+.item{
+    
+    &:not(:last-child){
+        margin: .25rem 1rem;
+    }
+    
+    &:first-child{
+        margin: .25rem 1rem;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .date{
+        color: $white-alpha-50 ;
+        font-size: .8rem;
+        padding-bottom: .5rem;
+    }
+    .temp{
+        font-weight: 600;
+        font-size: 1.15rem;
+    }
+}

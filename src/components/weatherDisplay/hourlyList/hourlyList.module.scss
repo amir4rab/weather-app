@@ -1,0 +1,9 @@
+.listArr{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+
+    overflow-y: hidden;
+    overflow-x: scroll;
+}

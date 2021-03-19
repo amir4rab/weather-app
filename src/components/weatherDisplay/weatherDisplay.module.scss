@@ -1,11 +1,9 @@
 @import '../../scss/styles';
 
 .main{
-
-    padding: 0 0 0 3rem;
-
     .hero{
-        
+        padding: 0 0 0 3rem;
+
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -60,6 +58,18 @@
                     object-fit: cover;
                 }
             }
+        }
+    }
+
+    .more{
+        padding-top: 2rem;
+        .hourlyUpdates{
+            border-top: .1rem solid $white-alpha-50;
+            padding: 1rem 3rem;
+        }
+        .dailyUpdates{
+            border-top: .1rem solid $white-alpha-50;
+            padding: 1rem 3rem;
         }
     }
 }
