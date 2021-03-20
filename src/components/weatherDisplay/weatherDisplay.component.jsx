@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
+
 import HourlyList from './hourlyList/hourlyList.component';
 import DailyList from './dailyList/dailyList.component';
+import MoreDetails from './moreDetails/moreDetails.component';
+import WeatherImgFinder from './weatherImgFinder/weatherImgFinder';
 
 import { connect } from 'react-redux';
 import { setCityWeather } from '../../redux/weatherApiData/weatherApiData.actions';
 
+import OpenWeatherApi from '../../utilities/openWeatherApi/openWeatherApi'
+
 import classes from './weatherDisplay.module.scss';
-import WeatherImgFinder from './weatherImgFinder/weatherImgFinder';
 
 const WeatherDisplay = ({ 
     weatherData, 
@@ -14,7 +18,8 @@ const WeatherDisplay = ({
     onTouchEndFn,
     onTouchMoveFn,
     setCityWeather,
-    dataObj
+    dataObj,
+    settings
     }) => {
 
     const {
@@ -34,8 +39,13 @@ const WeatherDisplay = ({
         const delta = nowDate.valueOf() - fetchedDate;
         if ( ( delta / 1000 ) > 3600 ) {
             console.log(data);
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${ cityGeoData.lat }&lon=${ cityGeoData.lon}&exclude=minutely&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
-                .then( res => res.json() )
+            OpenWeatherApi.getWeather(
+                {
+                    lat: cityGeoData.lat,
+                    lon: cityGeoData.lon
+                },
+                settings.unitSettings
+            )
                 .then( res => {
                     setWeatherIsUpToDate(true);
                     setCityWeather({
@@ -47,7 +57,7 @@ const WeatherDisplay = ({
         } else {
             setWeatherIsUpToDate(true);
         }
-    },[cityGeoData, cityName, data, fetchedDate, setCityWeather])
+    },[cityGeoData, cityName, data, fetchedDate, setCityWeather, settings])
 
     return (
         <div>
@@ -82,6 +92,9 @@ const WeatherDisplay = ({
                         <div className={ classes.dailyUpdates }>
                             <DailyList dataArr={ data.daily } />
                         </div>
+                        <div>
+                            <MoreDetails data={ data.current } />
+                        </div>
                     </div>
                 </div>
             }
@@ -93,4 +106,8 @@ const mapDispatchProps =  dispatch => ({
     setCityWeather: data => dispatch(setCityWeather(data))
 });
 
-export default connect( null , mapDispatchProps )(WeatherDisplay);
+const mapStateToProps = state => ({
+    settings: state.settings
+});
+
+export default connect( mapStateToProps , mapDispatchProps )(WeatherDisplay);

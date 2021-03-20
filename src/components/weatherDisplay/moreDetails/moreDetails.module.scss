@@ -1,0 +1,24 @@
+@import '../../../scss/styles';
+
+.main{
+    background: $background-s;
+    padding: 1rem 3rem 7.5vh 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .details{
+        width: 50%;
+        padding: .5rem 0;
+        &_title{
+            color: $white-alpha-50;
+            padding-bottom: .5rem;
+            font-size: .8rem;
+        }
+        &_p{
+            
+        }
+    }
+}
