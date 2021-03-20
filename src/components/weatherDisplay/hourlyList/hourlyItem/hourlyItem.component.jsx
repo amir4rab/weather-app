@@ -8,7 +8,7 @@ const HourlyItem = ({ data }) => {
                 { date.getHours() } : 00
             </p>
             <p className={ classes.temp }>
-                { data.temp }°
+                { data.temp.toFixed(0) }°
             </p>
         </div>
     );

@@ -1,7 +1,6 @@
 @import '../../../../scss/styles';
 
 .item{
-    
     &:not(:last-child){
         margin: .25rem 1rem;
     }
@@ -9,6 +8,8 @@
     &:first-child{
         margin: .25rem 1rem;
     }
+
+    min-width: 15vw;
 
     display: flex;
     justify-content: center;

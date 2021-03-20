@@ -22,8 +22,7 @@ const Home = ({ citiesData }) => {
     const touchStartPoint = (e) => {
         setTouchStartPointLocation(e.touches[0].screenX);
     }
-
-    // console.log(`re render!`);
+    
 
     const touchMoveEvent = (e) => {
         if( lastTouchEnded && Math.abs( touchStartPointLocation - e.touches[0].screenX ) > 50 ) {

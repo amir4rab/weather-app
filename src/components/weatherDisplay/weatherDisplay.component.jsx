@@ -58,7 +58,7 @@ const WeatherDisplay = ({
                     <div className={ classes.hero } onTouchStart={onTouchStartFn} onTouchEnd={onTouchEndFn} onTouchMove={onTouchMoveFn}>
                         <div className={ classes.weatherData }>
                             <div className={ classes.weatherData_temp }>
-                                { data.current.temp }°
+                                { data.current.temp.toFixed(0) }°
                             </div>
                             <div className={ classes.weatherData_secDetails }>
                                 <p className={ classes.weatherStatus }>

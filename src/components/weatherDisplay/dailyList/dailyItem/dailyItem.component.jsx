@@ -23,10 +23,10 @@ const DailyItem = ({ data }) => {
             <div className={ classes.weather }>
                 <div className={ classes.temp }>
                     <p className={ classes.temp_min }>
-                        min { data.temp.min }°
+                        min { data.temp.min.toFixed(0) }°
                     </p>
                     <p className={ classes.temp_max }>
-                        max { data.temp.max }°
+                        max { data.temp.max.toFixed(0) }°
                     </p>
                 </div>
                 <div className={ classes.icon }>

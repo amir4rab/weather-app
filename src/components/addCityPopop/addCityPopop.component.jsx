@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
-import classes from './addCityPopop.module.scss';
+import { connect } from 'react-redux';
 
-const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
+import classes from './addCityPopop.module.scss';
+import OpenWeatherApi from '../../utilities/openWeatherApi/openWeatherApi';
+
+const AddCityPopop = ({ unsuccessfullProcess, successfullProcess, settings }) => {
     const [ loadingState, setLoadingState ] = useState(false);
     const [ cityNotFoundState, setCityNotFoundState ] = useState(false);
     const [ cityFoundState, setCityFoundState ] = useState(false);
@@ -17,8 +20,7 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
     const checkWithApi = () => {
         setLoadingState(true);
         if ( cityFoundState === false ) {
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
-                .then( res => res.json() )
+            OpenWeatherApi.getGeoLocation(cityName)
                 .then( res => {
                     if( res.length > 0 ) {
                         // console.log(res[0], res[0].lat)
@@ -41,8 +43,13 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
                 })
                 .catch( err => console.log(err) );
         } else {
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cashedData.geoData.lat}&lon=${cashedData.geoData.lon}&exclude=minutely&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
-                .then( res => res.json() )
+            OpenWeatherApi.getWeather(
+                {
+                    lat: cashedData.geoData.lat,
+                    lon: cashedData.geoData.lon
+                },
+                settings.unitSettings
+            )
                 .then( res => {
                     // console.log(res)
                     setCityFoundState(true);
@@ -107,6 +114,8 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess }) => {
     ); 
 };
 
+const mapStateToProps = state => ({
+    settings: state.settings
+})
 
-
-export default AddCityPopop;
+export default connect( mapStateToProps, null )(AddCityPopop);

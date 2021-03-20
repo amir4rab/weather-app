@@ -8,7 +8,13 @@ const settingsDataReducer = ( state = INITIAL_STATE, action ) => {
         case 'SET_UNIT_SETTINGS': {
             return {
                 ...state,
-                unitSettings: action.payload.data
+                unitSettings: action.payload
+            }
+        }
+        case 'SET_SIGN_IN': {
+            return {
+                ...state,
+                signIn: action.payload
             }
         }
         default:
