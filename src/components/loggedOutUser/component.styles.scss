@@ -1,0 +1,52 @@
+@import '../../scss/styles';
+.main{
+    .title{
+        padding: 1rem 0;
+    }
+    .inputGroup{
+        padding: .5rem 0 ;
+        &_label{
+            display: block;
+        }
+        &_input{
+            margin-top: .5rem;
+            display: block;
+            width: 100%;
+            padding: .25rem .5rem;
+            background: $background-s;
+            border: none;
+            border-radius: .5rem;
+            color: $white-1;
+        }
+    }
+    .submitBtn{
+        color: $white-1;
+        background: $green-1;
+        border: none;
+        padding: .25rem .5rem;
+        border-radius: .5rem;
+        width: 25%;
+        margin-top: 1rem;
+    }
+    .btnToLeft{
+        margin-left: auto;
+    }
+}
+
+.stateBtns{
+    width: 50%;
+    border: none;
+
+    padding: .25rem .5rem;
+    color: darken($white-1, 50);
+    background: lighten($black-1, 5) ;
+    cursor: pointer;
+
+    outline: none;
+    
+    &:disabled{
+        color: $white-1;
+        cursor: auto;
+        background: $black-1;
+    }
+}

@@ -8,13 +8,17 @@ import reportWebVitals from './reportWebVitals';
 import  { Provider } from 'react-redux';
 import store from './redux/store';
 
-import { BrowserRouter as Router } from 'react-router-dom'; 
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import FirebaseProvider from './utilities/firebase/context/firebase.context'; 
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <React.StrictMode>
-        <App />
+        <FirebaseProvider>
+          <App />
+        </FirebaseProvider>
       </React.StrictMode>
     </Router>
   </Provider>,

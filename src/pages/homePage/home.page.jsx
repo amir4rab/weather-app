@@ -8,7 +8,7 @@ import HomePageIndicator from '../../components/homePageIndicator/homePageIndica
 import AddNewCity from './../../components/addNewCity/addNewCity.component';
 import WeatherDisplay from '../../components/weatherDisplay/weatherDisplay.component';
 
-const Home = ({ citiesData }) => {
+const HomePage = ({ citiesData }) => {
     const [ activeIndex, setActiveIndex ] = useState(0);
     const [ todaysDate ] = useState(new Date()); 
 
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
     citiesData: state.weatherApi
 })
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, null)(HomePage);
