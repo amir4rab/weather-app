@@ -18,7 +18,7 @@ passwordSchema
 
 //**  password validator settings  **//
 
-const SignupFrom = ({ initSignup }) => {
+const SignupFrom = ({ initSignup, firebaseErrStr }) => {
 
     //**   Email word sate and checks  **//
 
@@ -88,7 +88,7 @@ const SignupFrom = ({ initSignup }) => {
             }));
         }
     }
-    
+
     //**   pass word sate and checks  **//
     
 
@@ -102,16 +102,16 @@ const SignupFrom = ({ initSignup }) => {
     return (
         <form className={ `main` } onSubmit={ e => e.preventDefault() }>
             <h4 className={ `title` }>
-                sign up
+                Signup
             </h4>
             <div className={ `inputGroup` }>
                 <label className={ `inputGroup_label` }>Email</label>
                 <input 
-                    className={ 
-                        `inputGroup_input 
-                        ${ !emailState.isTrue && emailState.touched ? `false` : '' }
-                        ${ emailState.isTrue ? `true` : '' }`
-                    } 
+                    className={[ 
+                        `inputGroup_input`,
+                        `${ !emailState.isTrue && emailState.touched ? `false` : '' }`,
+                        `${ emailState.isTrue ? `true` : '' }`,
+                    ].join(' ')} 
                     ref={ emailInput } 
                     type="email"
                     onKeyUp={checkEmail}
@@ -140,9 +140,10 @@ const SignupFrom = ({ initSignup }) => {
                     ].join(' ')} 
                     ref={ passwordRepeatInput } 
                     onKeyUp={ checkPasswordRepeat } 
-                    type="password" show
+                    type="password"
                 />
             </div>
+            <p className={ `errorRes` }>{firebaseErrStr}</p>
             <button 
                 className={ `submitBtn` } 
                 onClick={ initSignupFn }

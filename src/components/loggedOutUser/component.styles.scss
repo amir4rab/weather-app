@@ -35,7 +35,7 @@
         padding: .25rem .5rem;
         border-radius: .5rem;
         width: 25%;
-        margin-top: 1rem;
+        margin-top: 0rem;
         &:disabled{
             background: darken( $green-1, 5 );
             color: darken( $white-1, 25 );
@@ -47,8 +47,11 @@
             background: darken( $green-1, 10 )
         }
     }
-    .btnToLeft{
-        margin-left: auto;
+    .errorRes{
+        margin: 1rem 0;
+        font-size: .8rem;
+        color: $red-1;
+        height: 2rem;
     }
 }
 

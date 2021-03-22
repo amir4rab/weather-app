@@ -9,7 +9,6 @@ const FirebaseProvider =  ({ children }) => {
     const [ currUser, setCurrUser ] = useState(null);
 
     const signup = ( email, password ) => {
-        console.log('runned!')
         return new Promise(( resolve, reject ) => {
             auth.createUserWithEmailAndPassword( email, password )
                 .then( user => {
@@ -43,12 +42,22 @@ const FirebaseProvider =  ({ children }) => {
         });
     };
 
-
+    const signinWithGoogle = _ => {
+        return new Promise(( resolve, reject ) => {
+            auth.signInWithPopup(googleAuthProvider)
+                .then( res => {
+                    setCurrUser(res);
+                    resolve(res);
+                })
+                .catch( err => reject(err) );
+        })
+    }
 
     const values = {
         signup,
         signin,
         signout,
+        signinWithGoogle,
         user: currUser
     };
 

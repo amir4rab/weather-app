@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import classes from './loggedOutUser.module.scss';
 import './component.styles.scss';
@@ -12,9 +12,16 @@ const LoggedOutUser = ({  }) => {
     const {
         signup,
         signin,
+        signinWithGoogle,
     } = useFirebaseContext();
 
+    const [ fireBaseErrorResponse, setFireBaseErrorResponse ] = useState(false);
+
     const [ signState, setSignState ] = useState(true);
+
+    useEffect(() => {
+        setFireBaseErrorResponse(null);
+    }, [signState])
 
     const initSignup = ( email, password ) => {
         // console.log( email, password );
@@ -22,7 +29,10 @@ const LoggedOutUser = ({  }) => {
             .then( res => {
                 console.log(res);
             })
-            .catch( err => console.log(err) );
+            .catch( err => {
+                console.log(err);
+                setFireBaseErrorResponse(err.message);
+            });
     }
 
     const initSignin = ( email, password ) => {
@@ -31,7 +41,21 @@ const LoggedOutUser = ({  }) => {
             .then( res => {
                 console.log(res);
             })
-            .catch( err => console.log(err) );
+            .catch( err => {
+                console.log(err);
+                setFireBaseErrorResponse(err.message);
+            });
+    }
+
+    const initSigninWithGoolge = _ => {
+        signinWithGoogle()
+            .then( res => {
+                console.log(res);
+            })
+            .catch( err => {
+                console.log(err);
+                setFireBaseErrorResponse(err.message);
+            });
     }
 
     return (
@@ -41,21 +65,24 @@ const LoggedOutUser = ({  }) => {
                     Login or Signup by one of the Following options
                 </h2>
                 <div className={ classes.oneBtnOptions }>
-                    <button className={ classes.oneBtnOptions_wg }>
+                    <button 
+                        className={ classes.oneBtnOptions_wg }
+                        onClick={initSigninWithGoolge}
+                    >
                         login with Google
                     </button>
                 </div>
                 <div className={ classes.signOptions }>
                     <div className={ classes.signOptions_btns }>
-                        <button className={ `stateBtns` } onClick={ _ => setSignState(false) } disabled={!signState}>sign in</button>
                         <button className={ `stateBtns` } onClick={ _ => setSignState(true) } disabled={signState}>sign up</button>
+                        <button className={ `stateBtns` } onClick={ _ => setSignState(false) } disabled={!signState}>sign in</button>
                     </div>
                     <div>
                         {
                             signState ? 
-                            <SignupFrom initSignup={initSignup} />
+                            <SignupFrom initSignup={initSignup} firebaseErrStr={fireBaseErrorResponse}/>
                             :
-                            <LoginFrom initSignin={initSignin} />
+                            <LoginFrom initSignin={initSignin} firebaseErrStr={fireBaseErrorResponse}/>
                         }
                     </div>
                 </div>
