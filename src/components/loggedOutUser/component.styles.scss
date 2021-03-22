@@ -17,16 +17,35 @@
             border: none;
             border-radius: .5rem;
             color: $white-1;
+            border: .1rem solid $background-s;
+            transition: boder .1s ease-in-out;
+            outline: none;
+            &.false{
+                border: .1rem solid $red-1;
+            }
+            &.true{
+                border: .1rem solid $green-1;
+            }
         }
     }
     .submitBtn{
-        color: $white-1;
         background: $green-1;
+        color: $white-1;
         border: none;
         padding: .25rem .5rem;
         border-radius: .5rem;
         width: 25%;
         margin-top: 1rem;
+        &:disabled{
+            background: darken( $green-1, 5 );
+            color: darken( $white-1, 25 );
+        }
+        &:hover{
+            background: darken( $green-1, 2.5 )
+        }
+        &:active{
+            background: darken( $green-1, 10 )
+        }
     }
     .btnToLeft{
         margin-left: auto;
