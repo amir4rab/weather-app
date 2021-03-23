@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import classes from './account.module.scss';
 
 import { useFirebaseContext } from '../../utilities/firebase/context/firebase.context';

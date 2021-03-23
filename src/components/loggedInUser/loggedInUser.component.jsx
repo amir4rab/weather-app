@@ -1,7 +1,14 @@
+import { useFirebaseContext } from '../../utilities/firebase/context/firebase.context'
+
 const LoggedInUser = (props) => {
+
+    const {
+        signout
+    } = useFirebaseContext();
+
     return (
         <div>
-            LoggedInUser
+            <button onClick={signout}>signout</button>
         </div>
     )
 }

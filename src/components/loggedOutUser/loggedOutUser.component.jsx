@@ -13,20 +13,24 @@ const LoggedOutUser = _ => {
         signup,
         signin,
         signinWithGoogle,
-        persistenceSignin
+        persistenceSignin,
+        persistenceSignup,
+        persistenceSignwithGoogle
     } = useFirebaseContext();
 
     const [ fireBaseErrorResponse, setFireBaseErrorResponse ] = useState(false);
 
     const [ signState, setSignState ] = useState(true);
 
+    const [ persistLogin, setPersistLogin ] = useState(true);
+
     useEffect(() => {
         setFireBaseErrorResponse(null);
     }, [signState])
 
     const initSignup = ( email, password ) => {
-        // console.log( email, password );
-        signup( email, password )
+        if( persistLogin ) {            
+            persistenceSignup( email, password )
             .then( res => {
                 // console.log(res);
             })
@@ -34,38 +38,59 @@ const LoggedOutUser = _ => {
                 // console.log(err);
                 setFireBaseErrorResponse(err.message);
             });
+        } else {
+            signup( email, password )
+                .then( res => {
+                    // console.log(res);
+                })
+                .catch( err => {
+                    // console.log(err);
+                    setFireBaseErrorResponse(err.message);
+                });
+        }
     }
 
     const initSignin = ( email, password ) => {
-        // console.log( email, password )
-        console.log('runn!')
-        persistenceSignin( email, password )
-            .then( res => {
-                console.log(res);
-            })
-            .catch( err => {
-                console.log(err);
-                setFireBaseErrorResponse(err.message);
-            });
-        // signin( email, password )
-        //     .then( res => {
-        //         // console.log(res);
-        //     })
-        //     .catch( err => {
-        //         // console.log(err);
-        //         setFireBaseErrorResponse(err.message);
-        //     });
+        if ( persistLogin ) {
+            persistenceSignin( email, password )
+                .then( res => {
+                    // console.log(res);
+                })
+                .catch( err => {
+                    setFireBaseErrorResponse(err.message);
+                });
+        } else {
+            signin( email, password )
+                .then( res => {
+                    // console.log(res);
+                })
+                .catch( err => {
+                    // console.log(err);
+                    setFireBaseErrorResponse(err.message);
+                });
+        }
     }
 
     const initSigninWithGoolge = _ => {
-        signinWithGoogle()
-            .then( res => {
-                // console.log(res);
-            })
-            .catch( err => {
-                // console.log(err);
-                setFireBaseErrorResponse(err.message);
-            });
+        if ( persistLogin ) { 
+            persistenceSignwithGoogle()
+                .then( res => {
+                    // console.log(res);
+                })
+                .catch( err => {
+                    // console.log(err);
+                    setFireBaseErrorResponse(err.message);
+                });
+        } else {
+            signinWithGoogle()
+                .then( res => {
+                    // console.log(res);
+                })
+                .catch( err => {
+                    // console.log(err);
+                    setFireBaseErrorResponse(err.message);
+                });
+        }
     }
 
     return (
