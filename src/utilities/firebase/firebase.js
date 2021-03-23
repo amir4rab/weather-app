@@ -16,4 +16,18 @@ const app = firebase.initializeApp({
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const auth = app.auth();
 export const database = app.database();
+export const persistenceSignin = ( email, password ) => (
+    new Promise(( resolve, reject ) => {
+        app.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then( _=>{
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then( res => resolve(res) )
+                    .catch( err => reject(err) );
+            })
+}))
+export const userObserver = new Promise(( resolve ) => {
+        firebase.auth().onAuthStateChanged(
+            user => resolve(user)
+        )
+    });
 export default app;

@@ -8,11 +8,12 @@ import { useFirebaseContext } from '../../utilities/firebase/context/firebase.co
 import LoginFrom from './loginFrom/login.from';
 import SignupFrom from './sigupFrom/signup.from';
 
-const LoggedOutUser = ({  }) => {
+const LoggedOutUser = _ => {
     const {
         signup,
         signin,
         signinWithGoogle,
+        persistenceSignin
     } = useFirebaseContext();
 
     const [ fireBaseErrorResponse, setFireBaseErrorResponse ] = useState(false);
@@ -27,17 +28,18 @@ const LoggedOutUser = ({  }) => {
         // console.log( email, password );
         signup( email, password )
             .then( res => {
-                console.log(res);
+                // console.log(res);
             })
             .catch( err => {
-                console.log(err);
+                // console.log(err);
                 setFireBaseErrorResponse(err.message);
             });
     }
 
     const initSignin = ( email, password ) => {
         // console.log( email, password )
-        signin( email, password )
+        console.log('runn!')
+        persistenceSignin( email, password )
             .then( res => {
                 console.log(res);
             })
@@ -45,15 +47,23 @@ const LoggedOutUser = ({  }) => {
                 console.log(err);
                 setFireBaseErrorResponse(err.message);
             });
+        // signin( email, password )
+        //     .then( res => {
+        //         // console.log(res);
+        //     })
+        //     .catch( err => {
+        //         // console.log(err);
+        //         setFireBaseErrorResponse(err.message);
+        //     });
     }
 
     const initSigninWithGoolge = _ => {
         signinWithGoogle()
             .then( res => {
-                console.log(res);
+                // console.log(res);
             })
             .catch( err => {
-                console.log(err);
+                // console.log(err);
                 setFireBaseErrorResponse(err.message);
             });
     }

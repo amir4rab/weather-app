@@ -1,16 +1,30 @@
 import 'firebase/database';
 
-import { createContext, useContext, useState } from 'react';
-import { auth, database, googleAuthProvider } from '../firebase';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { auth, googleAuthProvider, persistenceSignin, userObserver } from '../firebase';
 
 const FirebaseContext = createContext();
 
 const FirebaseProvider =  ({ children }) => {
-    const [ currUser, setCurrUser ] = useState(null);
+    const [ currUser, setCurrUser ] = useState({
+        user: null,
+        loading: true
+    });
+
+    useEffect( _ => {
+        userObserver
+            .then( user => {
+                setCurrUser( currState => ({
+                    ...currState,
+                    user: user,
+                    loading: false
+                }))
+            });
+    },[]);
 
     const signup = ( email, password ) => {
         return new Promise(( resolve, reject ) => {
-            auth.createUserWithEmailAndPassword( email, password )
+            auth.createUserWithEmailAndPassword( email, password ).set
                 .then( user => {
                     setCurrUser(user);
                     resolve(user);
@@ -53,12 +67,44 @@ const FirebaseProvider =  ({ children }) => {
         })
     }
 
+    const persistenceSigninFn = ( email, password ) => {
+        return new Promise(( resolve, reject ) => {
+            persistenceSignin( email, password )
+                .then( res => {
+                    setCurrUser(res);
+                    resolve(res);
+                })
+                .catch( err => reject(err) );
+        })
+    }
+
+    // // useEffect(() => {
+        
+    // //     // auth().onAuthStateChanged(user => {
+    // //     //     if (user) {
+
+    // //     //     } else {
+
+    // //     //     }
+
+    // //     const user = ;
+    // //     if()
+
+    // //     })
+
+    //     return () => {
+            
+    //     }
+    // }, [])
+
     const values = {
         signup,
         signin,
         signout,
         signinWithGoogle,
-        user: currUser
+        persistenceSignin: persistenceSigninFn,
+        user: currUser.user,
+        loading: currUser.loading
     };
 
     return (
