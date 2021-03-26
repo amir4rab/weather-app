@@ -22,6 +22,7 @@ const LoggedOutUser = _ => {
 
     const [ signState, setSignState ] = useState(true);
 
+    // eslint-disable-next-line no-unused-vars
     const [ persistLogin, setPersistLogin ] = useState(true);
 
     useEffect(() => {

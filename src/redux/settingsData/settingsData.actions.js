@@ -7,3 +7,8 @@ export const setSignIn = data => ({
     type: 'SET_SIGN_IN',
     payload: data
 });
+
+export const setSettingsSynced = data => ({
+    type: 'SET_SYNCED',
+    payload: data
+});

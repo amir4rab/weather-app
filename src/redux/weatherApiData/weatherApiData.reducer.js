@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
     data: [],
+    synced: false
 }
 
 const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
@@ -12,6 +13,7 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
 
             return {
                 ...state,
+                synced: false,
                 data: [
                     ...newArr,
                     {
@@ -47,6 +49,7 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
 
             return {
                 ...state,
+                synced: false,
                 data: [
                     ...newArr,
                     changedCity
@@ -62,6 +65,7 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
 
             return {
                 ...state,
+                synced: false,
                 data: [
                     ...newArr,
                     {
@@ -81,9 +85,16 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
 
             return {
                 ...state,
+                synced: false,
                 data: [
                     ...newArr
                 ],
+            }
+        }
+        case 'SET_SYNCED':{
+            return{
+                ...state,
+                synced: true,
             }
         }
         default:

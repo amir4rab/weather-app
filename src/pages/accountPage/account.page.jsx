@@ -4,6 +4,7 @@ import { useFirebaseContext } from '../../utilities/firebase/context/firebase.co
 
 import LoggedInUser from '../../components/loggedInUser/loggedInUser.component';
 import LoggedOutUser from '../../components/loggedOutUser/loggedOutUser.component';
+import LoadingPopup from '../../components/loadingPopup/loadingPopup.component';
 
 const AccountPage = _ => {
     // useState(null)
@@ -21,10 +22,13 @@ const AccountPage = _ => {
             {
                 loading ? 
                 <div>
-                    loading...
+                    <LoadingPopup />
                 </div>
                 :
                 <div>
+                    <div className={ classes.title }>
+                        Account
+                    </div>
                     {
                         user !== null ? 
                         <LoggedInUser />

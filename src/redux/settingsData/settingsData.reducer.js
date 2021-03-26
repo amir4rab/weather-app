@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
-    signIn: false,
-    unitSettings: 'metric'
+    unitSettings: 'metric',
+    synced: false,
 }
 
 const settingsDataReducer = ( state = INITIAL_STATE, action ) => {
@@ -11,12 +11,13 @@ const settingsDataReducer = ( state = INITIAL_STATE, action ) => {
                 unitSettings: action.payload
             }
         }
-        case 'SET_SIGN_IN': {
+        case 'SET_SYNCED': {
             return {
                 ...state,
-                signIn: action.payload
+                synced: action.payload
             }
         }
+        
         default:
             return state;
     }

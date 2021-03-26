@@ -18,3 +18,7 @@ export const setNewCityFully = data => ({
     type: 'SET_NEW_CITY_FULLY',
     payload: data
 });
+export const setWeatherSynced = data => ({
+    type: 'SET_SYNCED',
+    payload: data
+})
