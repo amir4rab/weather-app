@@ -7,7 +7,9 @@ import {
     persistenceSignin, 
     userObserver,
     persistenceSignup,
-    persistenceSignwithGoogle
+    persistenceSignwithGoogle,
+    database,
+    getCurrUser
 } from '../firebase';
 
 const FirebaseContext = createContext();
@@ -132,6 +134,28 @@ const FirebaseProvider =  ({ children }) => {
         })
     }
 
+    const setData = (data) => (
+        new Promise(( resolve, reject ) => {
+            database.ref( 'users/' + auth.currentUser.uid ).set({
+                ...data
+            })
+                .then( res => resolve(res) )
+                .catch( err => reject(err) );
+        })
+    );
+
+    const getData = _ => (
+        new Promise(( resolve, reject ) => {
+            const dataRef = database.ref( 'users/' + auth.currentUser.uid );
+            dataRef.once('value', (snapshot) => {
+                const data = snapshot.val();
+                resolve(data);
+            })
+                .catch( err => reject(err) )
+        })
+    )
+    
+    const getCurrUser = auth.currentUser;
 
     //**  exporting value  **//
     const values = {
@@ -142,9 +166,13 @@ const FirebaseProvider =  ({ children }) => {
         persistenceSignin: persistenceSigninFn,
         persistenceSignup: persistenceSignupFn,
         persistenceSignwithGoogle: persistenceSignwithGoogleFn,
+        getCurrUser,
         user: currUser.user,
-        loading: currUser.loading
+        loading: currUser.loading,
+        setData,
+        getData
     };
+
 
     return (
         <FirebaseContext.Provider value={values}>

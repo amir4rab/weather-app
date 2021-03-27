@@ -68,7 +68,6 @@ const HomePage = ({ citiesData }) => {
                     onTouchStartFn={ touchStartPoint }
                     onTouchEndFn={ touchEndPoint } 
                     onTouchMoveFn={ touchMoveEvent } 
-                    weatherData={ citiesData.data[activeIndex].weatherData }
                     dataObj= { citiesData.data[activeIndex] }
                 />
             }

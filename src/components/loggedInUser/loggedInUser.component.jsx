@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
-import { setSettingsSynced } from '../../redux/settingsData/settingsData.actions';
-import { setWeatherSynced } from '../../redux/weatherApiData/weatherApiData.actions';
+import { setWeatherSynced, setCitiesArr } from '../../redux/weatherApiData/weatherApiData.actions';
 
 import classes from './loggedInUser.module.scss';
 
@@ -11,20 +10,71 @@ import LoadingPopup from '../loadingPopup/loadingPopup.component';
 
 const LoggedInUser = ({
     setWeatherSynced,
-    setSettingsSynced,
-    weatherSynced,
-    settingsSynced,
+    weatherData,
+    setCitiesArr,
 }) => {
 
     const {
         signout,
-        user
+        user,
+        setData,
+        getData,
     } = useFirebaseContext();
 
     const [ isLoading, setIsLoading ] = useState(false);
 
-    console.log( weatherSynced, settingsSynced );
-    console.log('runned!');
+    useEffect(_ => {
+        setIsLoading(true);
+        getData()
+            .then( res => {
+                const data = weatherData.data.map( cityData => ({ 
+                    name: cityData.name,
+                    geoData: cityData.geoData
+                }));
+                if ( res.weatherData === null ) {
+                    if ( weatherData.data.length === 0 ) {
+                        setIsLoading(false);
+                    } else {
+                        setData({
+                            weatherData: data
+                        }).then(_ => {
+                            setIsLoading(false);
+                            setWeatherSynced(true);
+                        })
+                    };
+                } else if ( weatherData.data.length === 0 ) {
+                    // ! set data from cloaud to redux
+                    console.log('here');
+                    // setCitiesArr(res.weatherData)
+                    setIsLoading(false);
+                    setWeatherSynced(true);
+                    // console.log( res.weatherData.length, data.length )
+                    } else {
+                        if( res.weatherData.length !== data.length ) {
+                        setIsLoading(false);
+                        console.log(`option :`, 2);
+                        //! chose between cloud data or local data
+                    } else {
+                        // const weatherDataLength = res.weatherData.length;
+                        let notSame = false;
+                        // console.log(weatherDataLength);
+                        for( let index = 0; index < res.weatherData.length; index++ ){
+                            if ( res.weatherData[index].name !== data[index].name ) {
+                                notSame = true;
+                                break;
+                            }
+                        }
+                        if ( notSame ) {
+                            //! chose between cloud data or local data
+                        }
+                    }
+                    console.log(res)
+                    setIsLoading(false);
+                }
+            })
+    },[getData, setCitiesArr, setData, setWeatherSynced, weatherData.data]);
+
+    console.log(weatherData.synced);
 
     return (
         <div className={ classes.main }>
@@ -50,7 +100,7 @@ const LoggedInUser = ({
                     Logout
                 </p>
                 {
-                    !weatherSynced || !settingsSynced ?
+                    !weatherData.synced  ?
                     <div className={ classes.accountOptions_btn_section }>
                         <button className={ classes.btn_green }>Sync</button>
                     </div>
@@ -64,12 +114,11 @@ const LoggedInUser = ({
 
 const mapDispatchToProps = dispatch => ({
     setWeatherSynced: data => dispatch(setWeatherSynced(data)),
-    setSettingsSynced: data => dispatch(setSettingsSynced(data))
+    setCitiesArr: data => dispatch(setCitiesArr(data))
 });
 
 const mapStateToProps = state => ({
-    weatherSynced: state.weatherApi.synced,
-    settingsSynced: state.settings.synced
+    weatherData: state.weatherApi
 })
 
-export default  connect( mapStateToProps,mapDispatchToProps )(LoggedInUser);
+export default  connect( mapStateToProps, mapDispatchToProps )(LoggedInUser);

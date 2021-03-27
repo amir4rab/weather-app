@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import HourlyList from './hourlyList/hourlyList.component';
 import DailyList from './dailyList/dailyList.component';
@@ -13,7 +13,6 @@ import OpenWeatherApi from '../../utilities/openWeatherApi/openWeatherApi'
 import classes from './weatherDisplay.module.scss';
 
 const WeatherDisplay = ({ 
-    weatherData, 
     onTouchStartFn,
     onTouchEndFn,
     onTouchMoveFn,
@@ -22,42 +21,50 @@ const WeatherDisplay = ({
     settings
     }) => {
 
-    const {
-        data,
-        fetchedDate
-    } = weatherData;
+    console.log(dataObj);
 
     const {
         name: cityName,
-        geoData: cityGeoData
+        geoData,
+        weatherData
     } = dataObj;
+
 
     const [ weatherIsUpToDate, setWeatherIsUpToDate ] = useState(false);
 
-    useEffect( _=>{
-        const nowDate = new Date();
-        const delta = nowDate.valueOf() - fetchedDate;
-        if ( ( delta / 1000 ) > 3600 ) {
-            console.log(data);
-            OpenWeatherApi.getWeather(
-                {
-                    lat: cityGeoData.lat,
-                    lon: cityGeoData.lon
-                },
-                settings.unitSettings
-            )
-                .then( res => {
-                    setWeatherIsUpToDate(true);
-                    setCityWeather({
-                        name: cityName,
-                        data: res
-                    });
+    const fetchWeatherData = useCallback(_ => {
+        OpenWeatherApi.getWeather(
+            {
+                lat: geoData.lat,
+                lon: geoData.lon
+            },
+            settings.unitSettings
+        )
+            .then( res => {
+                console.log(res);
+                setCityWeather({
+                    name: cityName,
+                    data: res
                 })
-                .catch( err => console.log(err) );
+            })
+            .catch( err => console.log(err) );
+    },[cityName, geoData.lat, geoData.lon, setCityWeather, settings.unitSettings]);
+
+    useEffect( _=>{
+        console.log(weatherData)
+        if( weatherData === null ) {
+            fetchWeatherData();
+            return;
+        }
+        const nowDate = new Date();
+        const delta = nowDate.valueOf() - weatherData.fetchedDate;
+        if ( ( delta / 1000 ) > 3600 ) {
+            fetchWeatherData();
         } else {
             setWeatherIsUpToDate(true);
         }
-    },[cityGeoData, cityName, data, fetchedDate, setCityWeather, settings])
+    },[ weatherData, fetchWeatherData])
+
 
     return (
         <div>
@@ -68,32 +75,32 @@ const WeatherDisplay = ({
                     <div className={ classes.hero } onTouchStart={onTouchStartFn} onTouchEnd={onTouchEndFn} onTouchMove={onTouchMoveFn}>
                         <div className={ classes.weatherData }>
                             <div className={ classes.weatherData_temp }>
-                                { data.current.temp.toFixed(0) }°
+                                { weatherData.data.current.temp.toFixed(0) }°
                             </div>
                             <div className={ classes.weatherData_secDetails }>
                                 <p className={ classes.weatherStatus }>
-                                    { data.current.weather[0].description }
+                                    { weatherData.data.current.weather[0].description }
                                 </p>
                                 <p className={ classes.weatherFeels }>
-                                    feels like { data.current.feels_like }°
+                                    feels like { weatherData.data.current.feels_like }°
                                 </p>
                             </div>
                         </div>
                         <div className={ classes.tempIcon }>
                             <div className={ classes.tempIcon_inner }>
-                                <WeatherImgFinder imgCode={ data.current.weather[0].icon } />
+                                <WeatherImgFinder imgCode={ weatherData.data.current.weather[0].icon } />
                             </div>
                         </div>
                     </div>
                     <div className={ classes.more }>
                         <div className={ classes.hourlyUpdates }>
-                            <HourlyList dataArr={ data.hourly }/>
+                            <HourlyList dataArr={ weatherData.data.hourly }/>
                         </div>
                         <div className={ classes.dailyUpdates }>
-                            <DailyList dataArr={ data.daily } />
+                            <DailyList dataArr={ weatherData.data.daily } />
                         </div>
                         <div>
-                            <MoreDetails data={ data.current } />
+                            <MoreDetails data={ weatherData.data.current } />
                         </div>
                     </div>
                 </div>

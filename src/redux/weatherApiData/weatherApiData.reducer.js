@@ -97,6 +97,21 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
                 synced: true,
             }
         }
+        case 'SET_CITIES_ARR':{
+            const resArr = action.payload.map( ( city, index ) =>  ({
+                name: city.name,
+                geoData: city.geoData,
+                positon: index,
+                weatherData: null,
+            }));
+            return {
+                ...state,
+                synced: true,
+                data: [
+                    ...resArr
+                ]
+            };
+        }
         default:
             return state
     }
