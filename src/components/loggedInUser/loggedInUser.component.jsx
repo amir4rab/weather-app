@@ -22,6 +22,7 @@ const LoggedInUser = ({
     } = useFirebaseContext();
 
     const [ isLoading, setIsLoading ] = useState(false);
+    const [ loadingEnded, setLoadingEnded ] = useState(false);
 
     useEffect(_ => {
         setIsLoading(true);
@@ -31,7 +32,7 @@ const LoggedInUser = ({
                     name: cityData.name,
                     geoData: cityData.geoData
                 }));
-                if ( res.weatherData === null ) {
+                if ( res === null || res.weatherData === null ) {
                     if ( weatherData.data.length === 0 ) {
                         setIsLoading(false);
                     } else {
@@ -43,44 +44,71 @@ const LoggedInUser = ({
                         })
                     };
                 } else if ( weatherData.data.length === 0 ) {
-                    // ! set data from cloaud to redux
-                    console.log('here');
-                    // setCitiesArr(res.weatherData)
+
                     setIsLoading(false);
                     setWeatherSynced(true);
-                    // console.log( res.weatherData.length, data.length )
-                    } else {
-                        if( res.weatherData.length !== data.length ) {
+                    setCitiesArr(res.weatherData);
+
+                } else {
+                    console.log(res.weatherData, data);
+
+                    if( res.weatherData.length !== data.length ) {
+
                         setIsLoading(false);
                         console.log(`option :`, 2);
                         //! chose between cloud data or local data
+
                     } else {
-                        // const weatherDataLength = res.weatherData.length;
+                        ;
                         let notSame = false;
-                        // console.log(weatherDataLength);
+                        
                         for( let index = 0; index < res.weatherData.length; index++ ){
+
                             if ( res.weatherData[index].name !== data[index].name ) {
                                 notSame = true;
                                 break;
                             }
+
                         }
                         if ( notSame ) {
+
                             //! chose between cloud data or local data
+                        } else {
+
+                            setWeatherSynced(true);
                         }
+
                     }
-                    console.log(res)
                     setIsLoading(false);
                 }
             })
     },[getData, setCitiesArr, setData, setWeatherSynced, weatherData.data]);
 
-    console.log(weatherData.synced);
+    // console.log(weatherData.synced);
+
+    const syncData = () => {
+        setLoadingEnded(false);
+        setIsLoading(true);
+        const data = weatherData.data.map( cityData => ({ 
+            name: cityData.name,
+            geoData: cityData.geoData
+        }));
+        setData({
+            weatherData: [
+                ...data
+            ]
+        })
+            .then( _ => {
+                setLoadingEnded(true)
+            })
+            .catch( err => console.log(err) );
+    }
 
     return (
         <div className={ classes.main }>
             {
                 isLoading ? 
-                <LoadingPopup />
+                <LoadingPopup getDismonted={ loadingEnded } dismount={ _ => setIsLoading(false) } />
                 :
                 null
             }
@@ -89,7 +117,7 @@ const LoggedInUser = ({
             </div>
             <div className={ classes.accountOptions }>
                 <p className={ classes.accountOptions_title }>
-                    Sync
+                    Logout
                 </p>
                 <div className={ classes.accountOptions_btn_section }>
                     <button className={ classes.btn_red } onClick={signout}>signout</button>
@@ -97,12 +125,15 @@ const LoggedInUser = ({
             </div>
             <div className={ classes.accountOptions }>
                 <p className={ classes.accountOptions_title }>
-                    Logout
+                    Sync
                 </p>
                 {
                     !weatherData.synced  ?
                     <div className={ classes.accountOptions_btn_section }>
-                        <button className={ classes.btn_green }>Sync</button>
+                        <button 
+                            className={ classes.btn_green }
+                            onClick= { syncData }
+                        >Sync</button>
                     </div>
                     :
                     <p>You are all synced with the clouds</p>

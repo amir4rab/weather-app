@@ -50,8 +50,8 @@
             
             animation: rotate 1s ease-in-out infinite;
             
-            transition: border .3s ease-in-out;
-            transition: background .3s ease-in-out;
+            transition: border .1s ease-in-out;
+            transition: background .1s ease-in-out;
             
             &.sucsses{
                 width: 75%;
@@ -81,7 +81,7 @@
                         }
                     }
 
-                    animation: animateUp .3s ease-in-out forwards .3s;
+                    animation: animateUp .3s ease-in-out forwards .1s;
                 }
             }
         }
