@@ -11,6 +11,7 @@ import { setCityWeather } from '../../redux/weatherApiData/weatherApiData.action
 import OpenWeatherApi from '../../utilities/openWeatherApi/openWeatherApi'
 
 import classes from './weatherDisplay.module.scss';
+import LoadingPopup from '../loadingPopup/loadingPopup.component';
 
 const WeatherDisplay = ({ 
     onTouchStartFn,
@@ -20,7 +21,6 @@ const WeatherDisplay = ({
     dataObj,
     settings
     }) => {
-
     console.log(dataObj);
 
     const {
@@ -29,10 +29,10 @@ const WeatherDisplay = ({
         weatherData
     } = dataObj;
 
+    const [ weatherIsUpToDate, setWeatherIsUpToDate ] = useState(weatherData);
 
-    const [ weatherIsUpToDate, setWeatherIsUpToDate ] = useState(false);
-
-    const fetchWeatherData = useCallback(_ => {
+    const fetchWeatherData = useCallback( _ => {
+        console.log(`getting data!`)
         OpenWeatherApi.getWeather(
             {
                 lat: geoData.lat,
@@ -41,7 +41,7 @@ const WeatherDisplay = ({
             settings.unitSettings
         )
             .then( res => {
-                console.log(res);
+                // console.log(res);
                 setCityWeather({
                     name: cityName,
                     data: res
@@ -50,8 +50,7 @@ const WeatherDisplay = ({
             .catch( err => console.log(err) );
     },[cityName, geoData.lat, geoData.lon, setCityWeather, settings.unitSettings]);
 
-    useEffect( _=>{
-        console.log(weatherData)
+    useEffect( _ =>{
         if( weatherData === null ) {
             fetchWeatherData();
             return;
@@ -63,14 +62,15 @@ const WeatherDisplay = ({
         } else {
             setWeatherIsUpToDate(true);
         }
-    },[ weatherData, fetchWeatherData])
+    },[ weatherData, fetchWeatherData ])
 
 
     return (
         <div>
             {
-                !weatherIsUpToDate ? 
-                <div> loading </div>:
+                !weatherIsUpToDate || dataObj.weatherData === null ? 
+                <LoadingPopup />
+                :
                 <div className={ classes.main }>
                     <div className={ classes.hero } onTouchStart={onTouchStartFn} onTouchEnd={onTouchEndFn} onTouchMove={onTouchMoveFn}>
                         <div className={ classes.weatherData }>
