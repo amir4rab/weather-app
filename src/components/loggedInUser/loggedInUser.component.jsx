@@ -7,6 +7,7 @@ import classes from './loggedInUser.module.scss';
 
 import { useFirebaseContext } from '../../utilities/firebase/context/firebase.context';
 import LoadingPopup from '../loadingPopup/loadingPopup.component';
+import ShowPopup from './showPopup/showPopup.component';
 
 const LoggedInUser = ({
     setWeatherSynced,
@@ -23,8 +24,30 @@ const LoggedInUser = ({
 
     const [ isLoading, setIsLoading ] = useState(false);
     const [ loadingEnded, setLoadingEnded ] = useState(false);
+    const [ choseData, setChoseData ] = useState(false);
+    const [ cashedData, setCashedData ] = useState([]);
 
-    useEffect(_ => {
+    const dataChoser = (input) => {
+        // console.log(cashedData)
+        if ( input ) {
+            setCitiesArr(cashedData);
+            setCashedData({});
+            setChoseData(false);
+        } else {
+            syncData()
+                .then(_ => {
+                    setChoseData(false);
+                });
+        }
+    }
+
+    const setCashedDataFn = ( firebaseData ) => {
+        setCashedData(_ => ([ ...firebaseData ]));
+        setChoseData(true);
+    }
+
+    useEffect( _ => {
+        if ( weatherData.synced ) return;
         setIsLoading(true);
         getData()
             .then( res => {
@@ -55,11 +78,9 @@ const LoggedInUser = ({
                     if( res.weatherData.length !== data.length ) {
 
                         setIsLoading(false);
-                        console.log(`option :`, 2);
-                        //! chose between cloud data or local data
+                        setCashedDataFn(res.weatherData);
 
                     } else {
-                        ;
                         let notSame = false;
                         
                         for( let index = 0; index < res.weatherData.length; index++ ){
@@ -71,8 +92,7 @@ const LoggedInUser = ({
 
                         }
                         if ( notSame ) {
-
-                            //! chose between cloud data or local data
+                            setCashedDataFn(res.weatherData);
                         } else {
 
                             setWeatherSynced(true);
@@ -82,9 +102,8 @@ const LoggedInUser = ({
                     setIsLoading(false);
                 }
             })
-    },[getData, setCitiesArr, setData, setWeatherSynced, weatherData.data]);
+    },[getData, setCitiesArr, setData, setWeatherSynced, weatherData.data, weatherData.synced]);
 
-    // console.log(weatherData.synced);
 
     const syncData = () => {
         setLoadingEnded(false);
@@ -93,19 +112,32 @@ const LoggedInUser = ({
             name: cityData.name,
             geoData: cityData.geoData
         }));
-        setData({
-            weatherData: [
-                ...data
-            ]
-        })
-            .then( _ => {
-                setLoadingEnded(true)
+        return new Promise(( resolve, reject ) => {
+            setData({
+                weatherData: [
+                    ...data
+                ]
             })
-            .catch( err => console.log(err) );
+                .then( _ => {
+                    setLoadingEnded(true);
+                    setWeatherSynced(true);
+                    resolve(null);
+                })
+                .catch( err => {
+                    console.log(err);
+                    reject(null);
+                });
+        })
     }
 
     return (
         <div className={ classes.main }>
+            {
+                choseData ?
+                <ShowPopup fromCloud={ _ => dataChoser(true) } fromDevice={ _ => dataChoser(false) } />
+                :
+                null
+            }
             {
                 isLoading ? 
                 <LoadingPopup getDismonted={ loadingEnded } dismount={ _ => setIsLoading(false) } />
