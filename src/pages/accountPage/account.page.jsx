@@ -13,10 +13,6 @@ const AccountPage = _ => {
         loading
     } = useFirebaseContext();
 
-    console.log(user);
-
-    // console.log(user);
-
     return (
         <div className={ classes.main }>
             {

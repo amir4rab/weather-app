@@ -21,8 +21,11 @@ export const setNewCityFully = data => ({
 export const setWeatherSynced = data => ({
     type: 'SET_SYNCED',
     payload: data
-})
+});
 export const setCitiesArr = data => ({
     type: 'SET_CITIES_ARR',
     payload: data
-})
+});
+export const weatherClear = _ => ({
+    type: 'CLEAR'
+});

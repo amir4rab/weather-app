@@ -21,7 +21,7 @@ const WeatherDisplay = ({
     dataObj,
     settings
     }) => {
-    console.log(dataObj);
+    // console.log(dataObj);
 
     const {
         name: cityName,
@@ -32,7 +32,7 @@ const WeatherDisplay = ({
     const [ weatherIsUpToDate, setWeatherIsUpToDate ] = useState(weatherData);
 
     const fetchWeatherData = useCallback( _ => {
-        console.log(`getting data!`)
+        // console.log(`getting data!`)
         OpenWeatherApi.getWeather(
             {
                 lat: geoData.lat,

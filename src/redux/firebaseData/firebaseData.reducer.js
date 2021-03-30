@@ -10,6 +10,11 @@ const firebaseDataReducer = ( state = INITIAL_STATE, action ) => {
                 synced: action.payload
             }
         }
+        case 'CLEAR': {
+            return {
+                ...INITIAL_STATE
+            }
+        }
         default:
             return state;
     }

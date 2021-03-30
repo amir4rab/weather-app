@@ -112,6 +112,11 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
                 ]
             };
         }
+        case 'CLEAR': {
+            return {
+                ...INITIAL_STATE
+            }
+        }
         default:
             return state
     }

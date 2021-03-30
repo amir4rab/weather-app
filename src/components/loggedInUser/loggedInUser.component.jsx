@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
-import { setWeatherSynced, setCitiesArr } from '../../redux/weatherApiData/weatherApiData.actions';
+import { setWeatherSynced, setCitiesArr, weatherClear } from '../../redux/weatherApiData/weatherApiData.actions';
+import { setSynced as setFirebaseSynced, firebaseClear } from '../../redux/firebaseData/firebaseData.actions';
 
 import classes from './loggedInUser.module.scss';
 
@@ -13,13 +14,18 @@ const LoggedInUser = ({
     setWeatherSynced,
     weatherData,
     setCitiesArr,
+    firebaseSynced,
+    setFirebaseSynced,
+    firebaseClear,
+    weatherClear
 }) => {
 
     const {
         signout,
-        user,
+        // user,
         setData,
         getData,
+        getCurrUser : user
     } = useFirebaseContext();
 
     const [ isLoading, setIsLoading ] = useState(false);
@@ -48,6 +54,7 @@ const LoggedInUser = ({
 
     useEffect( _ => {
         if ( weatherData.synced ) return;
+        if ( firebaseSynced ) return;
         setIsLoading(true);
         getData()
             .then( res => {
@@ -58,12 +65,14 @@ const LoggedInUser = ({
                 if ( res === null || res.weatherData === null ) {
                     if ( weatherData.data.length === 0 ) {
                         setIsLoading(false);
+                        setFirebaseSynced(true);
                     } else {
                         setData({
                             weatherData: data
                         }).then(_ => {
                             setIsLoading(false);
                             setWeatherSynced(true);
+                            setFirebaseSynced(true);
                         })
                     };
                 } else if ( weatherData.data.length === 0 ) {
@@ -71,14 +80,15 @@ const LoggedInUser = ({
                     setIsLoading(false);
                     setWeatherSynced(true);
                     setCitiesArr(res.weatherData);
+                    setFirebaseSynced(true);
 
                 } else {
-                    console.log(res.weatherData, data);
 
                     if( res.weatherData.length !== data.length ) {
 
                         setIsLoading(false);
                         setCashedDataFn(res.weatherData);
+                        setFirebaseSynced(true);
 
                     } else {
                         let notSame = false;
@@ -93,16 +103,18 @@ const LoggedInUser = ({
                         }
                         if ( notSame ) {
                             setCashedDataFn(res.weatherData);
+                            setFirebaseSynced(true);
                         } else {
 
                             setWeatherSynced(true);
+                            setFirebaseSynced(true);
                         }
 
                     }
                     setIsLoading(false);
                 }
             })
-    },[getData, setCitiesArr, setData, setWeatherSynced, weatherData.data, weatherData.synced]);
+    },[firebaseSynced, getData, setCitiesArr, setData, setFirebaseSynced, setWeatherSynced, weatherData.data, weatherData.synced]);
 
 
     const syncData = () => {
@@ -130,6 +142,14 @@ const LoggedInUser = ({
         })
     }
 
+    const signoutFn = () => {
+        signout()
+            .then( _ => {
+                firebaseClear();
+                weatherClear();
+            });
+    }
+
     return (
         <div className={ classes.main }>
             {
@@ -152,7 +172,7 @@ const LoggedInUser = ({
                     Logout
                 </p>
                 <div className={ classes.accountOptions_btn_section }>
-                    <button className={ classes.btn_red } onClick={signout}>signout</button>
+                    <button className={ classes.btn_red } onClick={ signoutFn }>signout</button>
                 </div>
             </div>
             <div className={ classes.accountOptions }>
@@ -177,11 +197,19 @@ const LoggedInUser = ({
 
 const mapDispatchToProps = dispatch => ({
     setWeatherSynced: data => dispatch(setWeatherSynced(data)),
-    setCitiesArr: data => dispatch(setCitiesArr(data))
+    setCitiesArr: data => dispatch(setCitiesArr(data)),
+    setFirebaseSynced: data => dispatch(setFirebaseSynced(data)),
+    firebaseClear: _ => dispatch(firebaseClear()),
+    weatherClear: _ => dispatch(weatherClear()),
+    clearAll: _ => dispatch(_ => {
+        firebaseClear();
+        weatherClear();
+    })
 });
 
 const mapStateToProps = state => ({
-    weatherData: state.weatherApi
+    weatherData: state.weatherApi,
+    firebaseSynced: state.firebase.synced
 })
 
 export default  connect( mapStateToProps, mapDispatchToProps )(LoggedInUser);
