@@ -29,3 +29,6 @@ export const setCitiesArr = data => ({
 export const weatherClear = _ => ({
     type: 'CLEAR'
 });
+export const unitChanged = _ => ({
+    type: 'REMOVE_WEATHER_CACHED_DATA'
+});

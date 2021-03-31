@@ -117,6 +117,21 @@ const weatherApiReducer = ( state = INITIAL_STATE, action ) => {
                 ...INITIAL_STATE
             }
         }
+        case 'REMOVE_WEATHER_CACHED_DATA':{
+            const dataArr = state.data.map( cityData => ({
+                name: cityData.name,
+                geoData: cityData.geoData,
+                positon: cityData.positon,
+                weatherData: null,
+            }));
+
+            return {
+                ...state,
+                data: [
+                    ...dataArr
+                ]
+            }
+        }
         default:
             return state
     }

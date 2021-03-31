@@ -1,0 +1,16 @@
+.main{
+    padding: 1rem 3rem;
+    .title{
+        font-weight: 600;
+        padding-bottom: 1.25rem;
+    }
+    .inputGroup{
+        padding: .5rem 0;
+        &_input{
+            margin-right: .5rem;
+        }
+        &_label{
+            // font-weight: 600;
+        }
+    }
+}
