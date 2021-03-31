@@ -1,0 +1,40 @@
+@import '../../../scss/styles';
+
+.main{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding: .75rem 0;
+    &:not(:last-child){
+        border-bottom: .05rem solid transparentize( $white-1 ,.8 );
+    }
+    .name{
+        font-size: 1rem;
+        text-transform: capitalize;
+    }
+    .btnArea{
+        .btn{
+            $border: none;
+            $border-radius: .5rem;
+            $font-size: .8rem;
+            $padding: .15rem 1rem;
+            &_red{
+                border: $border;
+                border-radius: $border-radius;
+                font-size: $font-size;
+                padding: $padding;
+                background-color: $red-1;
+                color: $white-1;
+                transition: background-color ease-in-out .1s;
+                &:hover{
+                    background-color: darken( $red-1, 10 );
+                }
+                &:active{
+                    background-color: darken( $red-1, 15 );
+                }
+            }
+        }
+    }
+}
