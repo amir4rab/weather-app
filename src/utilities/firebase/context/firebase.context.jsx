@@ -8,8 +8,7 @@ import {
     userObserver,
     persistenceSignup,
     persistenceSignwithGoogle,
-    database,
-    getCurrUser
+    database
 } from '../firebase';
 
 const FirebaseContext = createContext();
