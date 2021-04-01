@@ -15,6 +15,10 @@
     }
 
     @include for-desktop-up {
+        min-height: 0;
+        padding: 0;
+        max-height: 80vh;
+        // display: none;
         .title{
             display: none;
         }

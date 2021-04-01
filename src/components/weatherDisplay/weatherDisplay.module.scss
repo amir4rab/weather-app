@@ -73,3 +73,107 @@
         }
     }
 }
+
+@include for-desktop-up {
+    .main{
+        display: flex;
+        justify-content: stretch;
+        align-items: stretch;
+        align-content: stretch;
+        max-height: 80vh;
+        height: 80vh;
+        overflow: hidden;
+
+        .hero{
+            width: 50%;
+            max-height: 80vh;
+            height: auto;
+
+            padding: 0 0 0 3rem;
+    
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            align-content: center;
+            flex-direction: column-reverse;
+            
+            position: relative;
+            overflow: hidden;
+    
+    
+            .weatherData{
+    
+                width: 100%;
+                padding: 1rem 1rem;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                align-content: space-between;
+
+                &_temp{
+                    font-size: 4rem;
+                    font-weight: 600;
+                }
+    
+                &_secDetails{
+                    padding-top: 2rem;
+                    .weatherStatus{
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        margin-bottom: .5rem;
+                    }
+                    .weatherFeels{
+                        font-size: 0.875rem;
+                        color: $white-alpha-50;
+                    }
+                }
+            }
+            
+            .tempIcon{
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 50%;
+                background: transparent;
+                border-radius: 0;
+    
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+    
+                &_inner{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+                    img{
+                        width: 50%;
+                        height: auto;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    
+        .more{
+            width: 50%;
+            max-height: 100%;
+            overflow-y: scroll;
+
+            padding-top: 2rem;
+            .hourlyUpdates{
+                border-top: none;
+                padding: 1.75rem 0;
+            }
+            .dailyUpdates{
+                border-top: .1rem solid $white-alpha-50;
+                padding: 1.75rem 0;
+            }
+        }
+    }
+}

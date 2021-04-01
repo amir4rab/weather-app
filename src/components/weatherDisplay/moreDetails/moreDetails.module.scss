@@ -4,11 +4,12 @@
     background: $background-s;
     padding: 1rem 3rem 7.5vh 3rem;
 
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
+    
     .details{
         width: 50%;
         padding: .5rem 0;
@@ -17,8 +18,10 @@
             padding-bottom: .5rem;
             font-size: .8rem;
         }
-        &_p{
-            
-        }
+    }
+    @include for-desktop-up {
+        padding: 2rem 7.5vw;
+        border-top: .1rem solid $white-alpha-50;
+        background-color: transparent;
     }
 }

@@ -27,4 +27,24 @@
             }
         }
     }
+    @include for-desktop-up {
+        padding: 1.25rem 7.5vw;
+        .date{
+            font-weight: 600;
+        }
+        .weather{
+            .temp{
+                font-size: 1rem;
+                padding-right: 1.25rem;
+                color: $white-alpha-50;
+                width: 7.5vw;
+            }
+            .icon{
+                img{
+                    height: 2.5rem;
+                    width: 2.5rem;
+                }
+            }
+        }
+    }
 }

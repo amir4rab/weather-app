@@ -38,6 +38,7 @@ const LoggedOutUser = _ => {
             .catch( err => {
                 // console.log(err);
                 setFireBaseErrorResponse(err.message);
+                console.log(err);
             });
         } else {
             signup( email, password )

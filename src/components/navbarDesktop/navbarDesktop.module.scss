@@ -1,12 +1,14 @@
 @import '../../scss/styles';
 
 .navbar_top{
-    height: 3rem;
-    padding: 2rem 4rem .5rem 4rem;
+    // height: 3rem;
+    padding: 0 4rem;
+    max-height: 10vh;
+    height: 7.6vh;
 
     display: none;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     align-content: center;
 
     @include for-desktop-up{

@@ -1,3 +1,5 @@
+@import './../../scss/styles';
+
 .mobile_indicator{
     margin: 1.5rem 3rem 0 3rem;
     &_title{
@@ -11,8 +13,19 @@
         align-items: center;
         align-content: center;
 
+        max-width: 30vw;
+        overflow-x: hidden;
+
         div:not(:last-child){
             margin-right: .4rem;
         }
+    }
+
+    @include for-desktop-up {
+        &_title{
+            display: none;
+        }
+        height: 10vh;
+        max-height: 10vh;
     }
 }

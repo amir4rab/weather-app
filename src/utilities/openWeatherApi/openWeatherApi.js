@@ -8,14 +8,13 @@ class OpenWeatherApi {
         });
     }
 
-    static getGeoLocation = (cityName) => {
-        return new Promise(( resolve, reject ) => {
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
+    static getGeoLocation = (cityName) => 
+        new Promise(( resolve, reject ) => {
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
                 .then( res => res.json() )
                 .then( res => resolve(res))
                 .catch( err => reject(err) );
         });
-    }
 }
 
 export default OpenWeatherApi;

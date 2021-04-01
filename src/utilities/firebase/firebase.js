@@ -32,12 +32,15 @@ export const persistenceSignup = ( email, password ) => (
     new Promise(( resolve, reject ) => {
         app.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then( _=>{
-                firebase.auth().signUpWithEmailAndPassword(email, password)
+                firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then( res => resolve(res) )
-                    .catch( err => reject(err) );
+                    .catch( err => {
+                        reject(err);
+                        console.log(err);
+                    });
             })
 }));
-export const persistenceSignwithGoogle = ( email, password ) => {
+export const persistenceSignwithGoogle = _ => {
 
     const provider = new firebase.auth.GoogleAuthProvider();
 

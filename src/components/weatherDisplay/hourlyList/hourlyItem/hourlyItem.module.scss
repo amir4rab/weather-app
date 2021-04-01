@@ -26,4 +26,8 @@
         font-weight: 600;
         font-size: 1.15rem;
     }
+    @include for-desktop-up{
+        min-width: 5vw;
+        padding-bottom: 1rem;
+    }
 }

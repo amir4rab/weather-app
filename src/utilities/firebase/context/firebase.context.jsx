@@ -34,7 +34,7 @@ const FirebaseProvider =  ({ children }) => {
     //**  signup methodes  **//
     const signup = ( email, password ) => {
         return new Promise(( resolve, reject ) => {
-            auth.createUserWithEmailAndPassword( email, password ).set
+            auth.createUserWithEmailAndPassword( email, password )
                 .then( user => {
                     setCurrUser(user);
                     resolve(user);
@@ -46,7 +46,7 @@ const FirebaseProvider =  ({ children }) => {
 
     const persistenceSignupFn = ( email, password ) => {
         return new Promise(( resolve, reject ) => {
-            persistenceSignup( email, password ).set
+            persistenceSignup( email, password )
                 .then( user => {
                     setCurrUser( currState => ({
                         ...currState,

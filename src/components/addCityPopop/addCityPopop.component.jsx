@@ -41,7 +41,10 @@ const AddCityPopop = ({ unsuccessfullProcess, successfullProcess, settings }) =>
                     }
                     setLoadingState(false);
                 })
-                .catch( err => console.log(err) );
+                .catch( err => {
+                    console.log(err)
+                    window.alert(err);
+                });
         } else {
             OpenWeatherApi.getWeather(
                 {

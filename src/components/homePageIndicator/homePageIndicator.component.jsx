@@ -4,17 +4,17 @@ import classes from './homePageIndicator.module.scss';
 
 import Dot from './dot/dot.component';
 
-const HomePageIndicator = ({ data, activeIndex, changeIndexFn }) => {
+const HomePageIndicator = ({ data, activeIndex, setActiveIndex }) => {
     const [ state, setState ] = useState(null);
 
-    // console.log(data);
+    // console.log(setActiveIndex());
 
     useEffect( _ => {
-        setState(_=>{
+        setState( _ => {
             const reArr = data.map( city => city.name );
             reArr.push('Add new City');
             return reArr;
-        })
+        });
     }, [ setState, data ]);
 
     return (
@@ -26,7 +26,7 @@ const HomePageIndicator = ({ data, activeIndex, changeIndexFn }) => {
                         { state[activeIndex] }
                     </div>
                     <div className={ classes.mobile_indicator_dots }>
-                        { state.map( ( _, index ) => <Dot key={index} activeIndex={activeIndex} index={index}></Dot> ) }
+                        { state.map( ( city , index ) => <Dot setToThisIndex={ _ => setActiveIndex(index)} key={index} name={city} activeIndex={activeIndex} index={index}></Dot> ) }
                     </div>
                 </div>
             }
