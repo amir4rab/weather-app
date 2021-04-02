@@ -26,8 +26,15 @@
         // border: $white-1 .1rem solid;
         padding: .25rem 1rem;
         transition: background-color .1s ease-in-out;
+        max-height: 2rem;
         &_inner{
+            height: 100%;
+            min-width: 10rem;
+            text-align: center;
+            line-break: strict;
             display: block;
+            text-overflow: ellipsis;
+            width: auto;
         }
         &:hover {
             user-select: none;
