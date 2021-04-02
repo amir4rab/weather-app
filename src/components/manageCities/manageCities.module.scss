@@ -1,7 +1,17 @@
+@import '../../scss/styles';
+
 .main{
     padding: 1rem 3rem;
     .title{
         font-weight: 600;
         padding-bottom: 1.25rem;
+    }
+
+    @include for-desktop-up {
+        .cityBox{
+            padding: 1rem 0;
+            border: .1rem solid $white-alpha-50;
+            border-radius: .5rem;
+        }
     }
 }

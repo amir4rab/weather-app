@@ -13,7 +13,7 @@ const ManageCities = ({ citiesData, removeCity }) => {
             <div className={ classes.title }>
                 Manage cities
             </div>
-            <div>
+            <div className={ classes.cityBox }>
                 {
                     citiesData.data.map( city => <CityItem data={city} removeFn={_ => removeCityFn(city.name)} key={city.name} />)
                 }

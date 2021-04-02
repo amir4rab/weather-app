@@ -37,4 +37,41 @@
             }
         }
     }
+
+    @include for-desktop-up  {
+        &:first-child{
+            padding: 0rem 1rem 1rem 1rem;
+        }
+        &:last-child{
+            padding: 1rem 1rem 0rem 1rem;
+        }
+        padding: 1rem 1rem;
+        .name{
+            font-size: 1rem;
+            text-transform: capitalize;
+        }
+        .btnArea{
+            .btn{
+                $border: none;
+                $border-radius: .5rem;
+                $font-size: .8rem;
+                $padding: .15rem 1rem;
+                &_red{
+                    border: $border;
+                    border-radius: $border-radius;
+                    font-size: $font-size;
+                    padding: $padding;
+                    background-color: $red-1;
+                    color: $white-1;
+                    transition: background-color ease-in-out .1s;
+                    &:hover{
+                        background-color: darken( $red-1, 10 );
+                    }
+                    &:active{
+                        background-color: darken( $red-1, 15 );
+                    }
+                }
+            }
+        }
+    }
 }
