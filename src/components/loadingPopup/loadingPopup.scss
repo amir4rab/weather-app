@@ -87,3 +87,13 @@
         }
     }
 }
+
+@include for-desktop-up {
+    .animationPopupOverlay {
+        .inner {
+            background: $black-1;
+            width: 15vw;
+            height: 15vw;
+        }
+    }
+}
