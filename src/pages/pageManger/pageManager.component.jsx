@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import NavbarDesktop from '../../components/navbarDesktop/navbarDesktop.component';
 import NavbarMobile from '../../components/navbarMobile/navbarMobile.component';
@@ -30,9 +30,7 @@ const PageManager = props => {
                     </Suspense>
                 </Route>
                 <Route path='**'>
-                    <div>
-                        404
-                    </div>
+                    <Redirect to='/' />
                 </Route>
             </Switch>
             <NavbarMobile />
