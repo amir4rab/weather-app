@@ -1,0 +1,34 @@
+@import '../../../scss/styles';
+
+.outer{
+    width: 100%;
+    height: 90vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    // background: red;
+    .inner{
+        width: 5rem;
+        height: 5rem;
+
+        border-top: $white-alpha-50 solid .5rem;
+        border-right: transparent solid .5rem;
+        border-left: transparent solid .5rem;
+        border-bottom: $white-alpha-50 solid .5rem;
+        border-radius: 50%;
+
+        @keyframes rotater {
+            from {
+                transform: rotateZ(0);
+            }
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        animation: rotater .8s ease-in-out infinite forwards;
+    }
+}
