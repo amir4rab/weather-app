@@ -45,6 +45,9 @@
         &:last-child{
             padding: 1rem 1rem 0rem 1rem;
         }
+        &:only-child{
+            padding: 0 1rem;
+        }
         padding: 1rem 1rem;
         .name{
             font-size: 1rem;
