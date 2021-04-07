@@ -1,0 +1,17 @@
+@import '../../scss/styles';
+
+@include for-desktop-up {
+    .main{
+        // display: grid;
+        max-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
+        // border: hotpink 1rem solid;
+        .navbarTop{
+    
+        }
+        .inner{
+    
+        }
+    }
+}
